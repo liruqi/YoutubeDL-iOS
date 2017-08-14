@@ -30,8 +30,14 @@ class DownloadProgress : NSObject {
     
     init(dict: [AnyHashable: Any]) {
         status = .Downloading
-        downloadedBytes = Int(dict["downloaded_bytes"]! as! NSNumber)
-        speed = Int(dict["speed"] as? NSNumber ?? 0)
-        totalBytes = Int(dict["total_bytes"]! as! NSNumber)
+        if let db = dict["downloaded_bytes"] as? Int {
+            self.downloadedBytes = db
+        }
+        if let speed = dict["speed"] as? Int {
+            self.speed = speed
+        }
+        if let tb = dict["total_bytes"] as? Int {
+            self.totalBytes = tb
+        }
     }
 }
