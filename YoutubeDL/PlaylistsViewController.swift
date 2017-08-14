@@ -41,7 +41,10 @@ class PlaylistsViewController: UITableViewController {
     }
     
     func addListFromString(stringUrl: String) {
-        let playlist = DataStore.sharedStore.addPlaylist(url: URL(string: stringUrl)!)
+        guard let url = URL(string: stringUrl) else {
+            return
+        }
+        let playlist = DataStore.sharedStore.addPlaylist(url: url)
         
         DownloadManager.sharedDownloadManager.refreshPlaylist(playlist: playlist) {
             print("Updated playlist: \(playlist)")
